@@ -1,22 +1,36 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
+import { CSVReader } from "react-papaparse"
+import Posts from "../components/posts"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+const IndexPage = () => {
+  const [input, setInput] = useState([])
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+  const handleOnDrop = data => {
+    setInput(data)
+  }
+
+  const handleOnError = (err, file, inputElem, reason) => {
+    console.log(err)
+  }
+
+  const handleOnRemoveFile = data => {}
+
+  return (
+    <div>
+      <h1>Annotation Sheet</h1>
+      <CSVReader
+        onDrop={handleOnDrop}
+        onError={handleOnError}
+        noDrag
+        addRemoveButton
+        onRemoveFile={handleOnRemoveFile}
+      >
+        <span>Click to upload.</span>
+      </CSVReader>
+      <Posts posts={input} />
     </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+  )
+}
 
 export default IndexPage
