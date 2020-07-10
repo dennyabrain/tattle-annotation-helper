@@ -14,7 +14,9 @@ const IndexPage = () => {
     console.log(err)
   }
 
-  const handleOnRemoveFile = data => {}
+  const handleOnRemoveFile = data => {
+    setInput([])
+  }
 
   return (
     <div>

@@ -69,7 +69,7 @@ const Posts = ({ posts }) => {
 
   return (
     <Box pad={"small"}>
-      {posts && (
+      {posts && posts[currentPost] && (
         <Box>
           <h2> Posts </h2>
           <Box direction={"row"} gap={"medium"}>
