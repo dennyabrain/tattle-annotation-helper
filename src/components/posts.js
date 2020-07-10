@@ -43,8 +43,8 @@ const annotationOptions = [
 ]
 
 const Posts = ({ posts }) => {
-  const [fetching, setFetching] = useState(false)
   const [output, setOutput] = useState([])
+  const [currentPost, setCurrentPost] = useState(0)
 
   const valueChanged = (id, value) => {
     setOutput({
@@ -57,34 +57,54 @@ const Posts = ({ posts }) => {
     console.log(output)
   }
 
-  useEffect(() => {
-    setFetching(true)
-  })
+  const incrementPage = () => {
+    let newPostNum = currentPost + 1
+    setCurrentPost(newPostNum)
+  }
+
+  const decrementPage = () => {
+    let newPostNum = currentPost - 1
+    setCurrentPost(newPostNum)
+  }
 
   return (
     <Box pad={"small"}>
-      <h2> Posts </h2>
+      {posts && (
+        <Box>
+          <h2> Posts </h2>
+          <Box direction={"row"} gap={"medium"}>
+            <Button label="previous" onClick={decrementPage} />
+            <Heading level={5}>
+              {" "}
+              {posts && posts[currentPost].data
+                ? posts[currentPost].data[0]
+                : ""}{" "}
+            </Heading>
+            <Button label="next" onClick={incrementPage} />
+          </Box>
 
-      {posts.map(post => {
-        return (
           <Box
-            key={post.data[0]}
+            key={posts[currentPost].data[0]}
             border={true}
             direction={"column"}
             margin={{ top: "small", bottom: "small" }}
           >
-            <Heading level={3}> {post.data[0]} </Heading>
-            <a href={post.data[1]}> {post.data[1]} </a>
+            <Heading level={3}> {posts[currentPost].data[0]} </Heading>
+            <a href={posts[currentPost].data[1]}>
+              {" "}
+              {posts[currentPost].data[1]}{" "}
+            </a>
             <CheckBoxGroup
               options={annotationOptions}
               onChange={e => {
-                valueChanged(post.data[0], e.value)
+                valueChanged(posts[currentPost].data[0], e.value)
               }}
             />
           </Box>
-        )
-      })}
-      <Button primary label="Save" onClick={onSave} />
+
+          <Button primary label="Save" onClick={onSave} />
+        </Box>
+      )}
     </Box>
   )
 }
