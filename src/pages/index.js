@@ -1,7 +1,9 @@
 import React, { useState } from "react"
-import { Link } from "gatsby"
+import { Grommet, Box, Heading } from "grommet"
 import { CSVReader } from "react-papaparse"
 import Posts from "../components/posts"
+import Theme from "../components/theme"
+import AppLogo from "@bit/tattle-tech.core-ui.app-logo"
 
 const IndexPage = () => {
   const [input, setInput] = useState([])
@@ -19,19 +21,24 @@ const IndexPage = () => {
   }
 
   return (
-    <div>
-      <h1>Annotation Sheet</h1>
-      <CSVReader
-        onDrop={handleOnDrop}
-        onError={handleOnError}
-        noDrag
-        addRemoveButton
-        onRemoveFile={handleOnRemoveFile}
-      >
-        <span>Click to upload.</span>
-      </CSVReader>
-      <Posts posts={input} />
-    </div>
+    <Grommet theme={Theme} full>
+      <Box pad={"medium"} gap={"small"}>
+        {/* <Heading level={1}>Annotation Sheet v1 </Heading> */}
+        <AppLogo name={"Annotation Sheet v1"} />
+        <Box width={"fill"} height={"small"}>
+          <CSVReader
+            onDrop={handleOnDrop}
+            onError={handleOnError}
+            noDrag
+            addRemoveButton
+            onRemoveFile={handleOnRemoveFile}
+          >
+            <span>Click to upload.</span>
+          </CSVReader>
+        </Box>
+        <Posts posts={input} />
+      </Box>
+    </Grommet>
   )
 }
 

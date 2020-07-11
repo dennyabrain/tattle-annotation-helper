@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Box, CheckBoxGroup, Heading, Button } from "grommet"
+import { Box, CheckBoxGroup, Heading, Button, TextArea, Text } from "grommet"
+import { Table, TableRow, TableBody, TableCell, TableHeader } from "grommet"
+import Media from "./media"
 /**
  * @author
  * @function Posts
@@ -42,9 +44,18 @@ const annotationOptions = [
   "Ambivalent- Other",
 ]
 
+const POST_ID = 0
+const MEDIA_TYPE = 1
+const PERMALINK = 2
+const TAG_NAME = 3
+const MEDIA_URL = 4
+const SCRAPE_TIMESTAMP = 5
+const CAPTION = 6
+
 const Posts = ({ posts }) => {
   const [output, setOutput] = useState([])
   const [currentPost, setCurrentPost] = useState(0)
+  const [annotatorNotes, setAnnotatorNotes] = useState("")
 
   const valueChanged = (id, value) => {
     setOutput({
@@ -55,6 +66,12 @@ const Posts = ({ posts }) => {
 
   const onSave = () => {
     console.log(output)
+  }
+
+  const setUserInput = (inputType, value) => {
+    if (inputType === "annotator_notes") {
+      setAnnotatorNotes(value)
+    }
   }
 
   const incrementPage = () => {
@@ -71,13 +88,13 @@ const Posts = ({ posts }) => {
     <Box pad={"small"}>
       {posts && posts[currentPost] && (
         <Box>
-          <h2> Posts </h2>
-          <Box direction={"row"} gap={"medium"}>
+          <Heading level={2}> Posts </Heading>
+          <Box direction={"row"} gap={"medium"} align={"center"}>
             <Button label="previous" onClick={decrementPage} />
-            <Heading level={5}>
+            <Heading level={3} margin={"none"}>
               {" "}
               {posts && posts[currentPost].data
-                ? posts[currentPost].data[0]
+                ? posts[currentPost].data[POST_ID]
                 : ""}{" "}
             </Heading>
             <Button label="next" onClick={incrementPage} />
@@ -85,24 +102,88 @@ const Posts = ({ posts }) => {
 
           <Box
             key={posts[currentPost].data[0]}
-            border={true}
+            pad={"medium"}
+            background="light-1"
             direction={"column"}
             margin={{ top: "small", bottom: "small" }}
           >
-            <Heading level={3}> {posts[currentPost].data[0]} </Heading>
-            <a href={posts[currentPost].data[1]}>
-              {" "}
-              {posts[currentPost].data[1]}{" "}
-            </a>
-            <CheckBoxGroup
-              options={annotationOptions}
-              onChange={e => {
-                valueChanged(posts[currentPost].data[0], e.value)
-              }}
-            />
+            <Box direction={"row"} gap={"medium"}>
+              <Box width={"large"} wrap={true}>
+                <Box width={"large"} height={"medium"}>
+                  <Media
+                    type={posts[currentPost].data[MEDIA_TYPE]}
+                    url={posts[currentPost].data[MEDIA_URL]}
+                  />
+                </Box>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableCell scope="col" border="bottom">
+                        Key
+                      </TableCell>
+                      <TableCell scope="col" border="bottom">
+                        Value
+                      </TableCell>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell scope="row">
+                        <strong>URL</strong>
+                      </TableCell>
+                      <TableCell>
+                        <a href={posts[currentPost].data[PERMALINK]}>
+                          {" "}
+                          {posts[currentPost].data[PERMALINK]}{" "}
+                        </a>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell scope="row">
+                        <strong>Tag</strong>
+                      </TableCell>
+                      <TableCell>{posts[currentPost].data[TAG_NAME]}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell scope="row">
+                        <strong>Timestamp</strong>
+                      </TableCell>
+                      <TableCell>
+                        {posts[currentPost].data[SCRAPE_TIMESTAMP]}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell scope="row">
+                        <strong>Caption</strong>
+                      </TableCell>
+                      <TableCell>{posts[currentPost].data[CAPTION]}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+
+              <Box direction={"column"} gap={"medium"}>
+                <CheckBoxGroup
+                  options={annotationOptions}
+                  // value={output[currentPost]}
+                  onChange={e => {
+                    valueChanged(posts[currentPost].data[POST_ID], e.value)
+                  }}
+                />
+
+                <TextArea
+                  placeholder="Additional Notes"
+                  value={annotatorNotes}
+                  size={"small"}
+                  onChange={event =>
+                    setUserInput("annotator_notes", event.target.value)
+                  }
+                />
+              </Box>
+            </Box>
           </Box>
 
-          <Button primary label="Save" onClick={onSave} />
+          <Button primary label="Save" onClick={onSave} fill={false} />
         </Box>
       )}
     </Box>
