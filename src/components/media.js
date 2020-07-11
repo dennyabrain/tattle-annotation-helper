@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, Video } from "grommet"
+import { Box, Image, Video } from "grommet"
 
 /**
  * @author
@@ -8,11 +8,15 @@ import { Image, Video } from "grommet"
 
 const Media = ({ type, url }) => {
   return type === "image" ? (
-    <Image fit="contain" src={url} fill={true} />
+    <Box fill={true}>
+      <Image fit="contain" src={url} fill={true} />
+    </Box>
   ) : (
-    <Video controls="over" fit="contain">
-      <source key="video" src={url} type="video/mp4" />
-    </Video>
+    <Box fill={true}>
+      <Video controls="over" fit="contain">
+        <source key="video" src={url} type="video/mp4" />
+      </Video>
+    </Box>
   )
 }
 

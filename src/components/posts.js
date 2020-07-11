@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Box, CheckBoxGroup, Heading, Button, TextArea, Text } from "grommet"
 import { Table, TableRow, TableBody, TableCell, TableHeader } from "grommet"
 import Media from "./media"
+import PostNavigation from "./post-navigation"
 /**
  * @author
  * @function Posts
@@ -87,18 +88,13 @@ const Posts = ({ posts }) => {
   return (
     <Box pad={"small"}>
       {posts && posts[currentPost] && (
-        <Box>
+        <Box gap={"medium"}>
           <Heading level={2}> Posts </Heading>
-          <Box direction={"row"} gap={"medium"} align={"center"}>
-            <Button label="previous" onClick={decrementPage} />
-            <Heading level={3} margin={"none"}>
-              {" "}
-              {posts && posts[currentPost].data
-                ? posts[currentPost].data[POST_ID]
-                : ""}{" "}
-            </Heading>
-            <Button label="next" onClick={incrementPage} />
-          </Box>
+          <PostNavigation
+            incrementPage={incrementPage}
+            decrementPage={decrementPage}
+            postId={posts[currentPost].data[POST_ID]}
+          />
 
           <Box
             key={posts[currentPost].data[0]}
@@ -107,62 +103,75 @@ const Posts = ({ posts }) => {
             direction={"column"}
             margin={{ top: "small", bottom: "small" }}
           >
-            <Box direction={"row"} gap={"medium"}>
-              <Box width={"large"} wrap={true}>
-                <Box width={"large"} height={"medium"}>
+            <Box direction={"row"}>
+              <Box overflow={"hidden"}>
+                <Box width={"medium"} height={"medium"}>
                   <Media
                     type={posts[currentPost].data[MEDIA_TYPE]}
                     url={posts[currentPost].data[MEDIA_URL]}
                   />
                 </Box>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableCell scope="col" border="bottom">
-                        Key
-                      </TableCell>
-                      <TableCell scope="col" border="bottom">
-                        Value
-                      </TableCell>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell scope="row">
-                        <strong>URL</strong>
-                      </TableCell>
-                      <TableCell>
-                        <a href={posts[currentPost].data[PERMALINK]}>
-                          {" "}
-                          {posts[currentPost].data[PERMALINK]}{" "}
-                        </a>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell scope="row">
-                        <strong>Tag</strong>
-                      </TableCell>
-                      <TableCell>{posts[currentPost].data[TAG_NAME]}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell scope="row">
-                        <strong>Timestamp</strong>
-                      </TableCell>
-                      <TableCell>
-                        {posts[currentPost].data[SCRAPE_TIMESTAMP]}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell scope="row">
-                        <strong>Caption</strong>
-                      </TableCell>
-                      <TableCell>{posts[currentPost].data[CAPTION]}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <Box fill={true}>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableCell scope="col" border="bottom">
+                          Key
+                        </TableCell>
+                        <TableCell scope="col" border="bottom">
+                          Value
+                        </TableCell>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>URL</strong>
+                        </TableCell>
+                        <TableCell>
+                          <a href={posts[currentPost].data[PERMALINK]}>
+                            {" "}
+                            {posts[currentPost].data[PERMALINK]}{" "}
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Tag</strong>
+                        </TableCell>
+                        <TableCell>
+                          {posts[currentPost].data[TAG_NAME]}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Timestamp</strong>
+                        </TableCell>
+                        <TableCell>
+                          {posts[currentPost].data[SCRAPE_TIMESTAMP]}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Caption</strong>
+                        </TableCell>
+                        <TableCell>
+                          <Box width={"medium"}>
+                            {posts[currentPost].data[CAPTION]}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Box>
               </Box>
 
-              <Box direction={"column"} gap={"medium"}>
+              <Box
+                direction={"column"}
+                gap={"medium"}
+                flex={true}
+                margin={{ left: "small" }}
+              >
                 <CheckBoxGroup
                   options={annotationOptions}
                   // value={output[currentPost]}
@@ -182,6 +191,12 @@ const Posts = ({ posts }) => {
               </Box>
             </Box>
           </Box>
+
+          <PostNavigation
+            incrementPage={incrementPage}
+            decrementPage={decrementPage}
+            postId={posts[currentPost].data[POST_ID]}
+          />
 
           <Button primary label="Save" onClick={onSave} fill={false} />
         </Box>
