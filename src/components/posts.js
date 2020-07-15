@@ -3,6 +3,7 @@ import { Box, CheckBoxGroup, Heading, Button, TextArea, Text } from "grommet"
 import { Table, TableRow, TableBody, TableCell, TableHeader } from "grommet"
 import Media from "./media"
 import PostNavigation from "./post-navigation"
+import DataTable from "./data-table"
 /**
  * @author
  * @function Posts
@@ -112,57 +113,14 @@ const Posts = ({ posts }) => {
                   />
                 </Box>
                 <Box fill={true}>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableCell scope="col" border="bottom">
-                          Key
-                        </TableCell>
-                        <TableCell scope="col" border="bottom">
-                          Value
-                        </TableCell>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell scope="row">
-                          <strong>URL</strong>
-                        </TableCell>
-                        <TableCell>
-                          <a href={posts[currentPost].data[PERMALINK]}>
-                            {" "}
-                            {posts[currentPost].data[PERMALINK]}{" "}
-                          </a>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell scope="row">
-                          <strong>Tag</strong>
-                        </TableCell>
-                        <TableCell>
-                          {posts[currentPost].data[TAG_NAME]}
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell scope="row">
-                          <strong>Timestamp</strong>
-                        </TableCell>
-                        <TableCell>
-                          {posts[currentPost].data[SCRAPE_TIMESTAMP]}
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell scope="row">
-                          <strong>Caption</strong>
-                        </TableCell>
-                        <TableCell>
-                          <Box width={"medium"}>
-                            {posts[currentPost].data[CAPTION]}
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
+                  <DataTable
+                    data={{
+                      permalink: posts[currentPost].data[PERMALINK],
+                      tagName: posts[currentPost].data[TAG_NAME],
+                      timestamp: posts[currentPost].data[SCRAPE_TIMESTAMP],
+                      caption: posts[currentPost].data[CAPTION],
+                    }}
+                  />
                 </Box>
               </Box>
 
@@ -174,7 +132,7 @@ const Posts = ({ posts }) => {
               >
                 <CheckBoxGroup
                   options={annotationOptions}
-                  // value={output[currentPost]}
+                  value={output[currentPost]}
                   onChange={e => {
                     valueChanged(posts[currentPost].data[POST_ID], e.value)
                   }}
