@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Grommet, Box, Heading } from "grommet"
+import { Grommet, Box } from "grommet"
 import { CSVReader } from "react-papaparse"
 import Posts from "../components/posts"
 import Theme from "../components/theme"
