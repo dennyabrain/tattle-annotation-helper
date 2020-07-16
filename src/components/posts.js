@@ -185,15 +185,6 @@ const Posts = ({ posts }) => {
                   }}
                 />
 
-                <RadioButtonGroup
-                  name="test"
-                  options={annotationFieldFour}
-                  value={output[currentPost]}
-                  onChange={e => {
-                    console.log("hi")
-                  }}
-                />
-
                 <Heading level={3} margin={"none"}>
                   Solicitation to call/ WhatsApp/ send money
                 </Heading>
