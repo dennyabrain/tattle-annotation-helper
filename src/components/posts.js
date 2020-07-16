@@ -11,6 +11,7 @@ import {
 import Media from "./media"
 import PostNavigation from "./post-navigation"
 import DataTable from "./data-table"
+import { save } from "save-file"
 /**
  * @author
  * @function Posts
@@ -30,8 +31,8 @@ const annotationFieldThree = [
   "Digital Content Providers",
   "Anonymous/User Generated",
 ]
-const annotationFieldFour = ["Yes", "No"]
-const annotationFieldFive = ["Yes", "No"]
+const annotationFieldFour = ["Yes ", "No "]
+const annotationFieldFive = ["Yes  ", "No  "]
 
 const POST_ID = 0
 const MEDIA_TYPE = 1
@@ -47,10 +48,11 @@ const Posts = ({ posts }) => {
 
   const onSave = () => {
     console.log(output)
+    save(JSON.stringify(output), "file.json")
   }
 
   const setUserInput = (inputType, id, value) => {
-    console.log({ inputType, id, value, output })
+    // console.log({ inputType, id, value, output })
     setOutput({
       ...output,
       [id]: {
