@@ -18,14 +18,14 @@ import { save } from "save-file"
  **/
 
 const annotationFieldOne = [
-  "No",
+  "No ",
   "Yes, Statistical Claim",
   "Yes, Descriptions of a real world events/place about noteworthy individuals.",
   "Yes, other",
 ]
 
 const annotationFieldTwo = [
-  "No",
+  "No  ",
   "Yes, person is performing for camera",
   "Yes, contains violent incident",
   "Other",
@@ -43,11 +43,11 @@ const annotationFieldFour = [
   "Digital Content Providers",
   "Anonymous/User Generated",
   "Government/Public Authority",
-  "Other",
+  "Other ",
 ]
-const annotationFieldFive = ["Yes", "No"]
-const annotationFieldSix = ["Yes ", "No "]
-const annotationFieldSeven = ["Yes  ", "No  "]
+const annotationFieldFive = ["Yes", "No   "]
+const annotationFieldSix = ["Yes ", "No    "]
+const annotationFieldSeven = ["Yes  ", "No     "]
 
 const POST_ID = 0
 const MEDIA_TYPE = 1
