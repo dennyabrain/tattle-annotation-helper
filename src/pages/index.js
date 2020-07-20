@@ -6,6 +6,8 @@ import Theme from "../components/theme"
 import AppLogo from "@bit/tattle-tech.core-ui.app-logo"
 
 const IndexPage = () => {
+  console.log("v 0.1")
+
   const [input, setInput] = useState([])
 
   const handleOnDrop = data => {

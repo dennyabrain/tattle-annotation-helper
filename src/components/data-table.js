@@ -31,7 +31,10 @@ const DataTable = ({ data }) => {
             <strong>URL</strong>
           </TableCell>
           <TableCell>
-            <a href={data.permalink}> {data.permalink} </a>
+            <a href={data.permalink} target="_blank">
+              {" "}
+              {data.permalink}{" "}
+            </a>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -52,6 +55,14 @@ const DataTable = ({ data }) => {
           </TableCell>
           <TableCell>
             <Box width={"medium"}>{data.caption}</Box>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell scope="row">
+            <strong>Text</strong>
+          </TableCell>
+          <TableCell>
+            <Box width={"medium"}>{data.text}</Box>
           </TableCell>
         </TableRow>
       </TableBody>

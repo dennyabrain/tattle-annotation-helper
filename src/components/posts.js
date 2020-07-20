@@ -41,10 +41,11 @@ const TAG_NAME = 3
 const MEDIA_URL = 4
 const SCRAPE_TIMESTAMP = 5
 const CAPTION = 6
+const TEXT = 7
 
 const Posts = ({ posts }) => {
   const [output, setOutput] = useState({})
-  const [currentPost, setCurrentPost] = useState(0)
+  const [currentPost, setCurrentPost] = useState(1)
 
   const onSave = () => {
     console.log(output)
@@ -82,6 +83,7 @@ const Posts = ({ posts }) => {
             incrementPage={incrementPage}
             decrementPage={decrementPage}
             postId={posts[currentPost].data[POST_ID]}
+            statusLabel={`${currentPost}/${posts.length - 1}`}
           />
 
           <Box
@@ -106,6 +108,7 @@ const Posts = ({ posts }) => {
                       tagName: posts[currentPost].data[TAG_NAME],
                       timestamp: posts[currentPost].data[SCRAPE_TIMESTAMP],
                       caption: posts[currentPost].data[CAPTION],
+                      text: posts[currentPost].data[TEXT],
                     }}
                   />
                 </Box>
