@@ -24,15 +24,30 @@ const annotationFieldOne = [
   "Yes, other",
 ]
 
-const annotationFieldTwo = ["Yes", "No"]
+const annotationFieldTwo = [
+  "No",
+  "Yes, person is performing for camera",
+  "Yes, contains violent incident",
+  "Other",
+]
+
 const annotationFieldThree = [
+  "No, does not contain images",
+  "Contains human",
+  "Does no contain human(s)",
+]
+
+const annotationFieldFour = [
   "Print/TV Media",
   "Digital Only News Outlets",
   "Digital Content Providers",
   "Anonymous/User Generated",
+  "Government/Public Authority",
+  "Other",
 ]
-const annotationFieldFour = ["Yes ", "No "]
-const annotationFieldFive = ["Yes  ", "No  "]
+const annotationFieldFive = ["Yes", "No"]
+const annotationFieldSix = ["Yes ", "No "]
+const annotationFieldSeven = ["Yes  ", "No  "]
 
 const POST_ID = 0
 const MEDIA_TYPE = 1
@@ -136,17 +151,31 @@ const Posts = ({ posts }) => {
                 />
 
                 <Heading level={3} margin={"none"}>
-                  Post contains unidentified amateur footage/photography
+                  Post contains unidentified videos
                 </Heading>
-                <RadioButtonGroup
-                  name="amateur photography"
+                <CheckBoxGroup
                   options={annotationFieldTwo}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
                       "field-two",
                       posts[currentPost].data[POST_ID],
-                      e.target.value
+                      e.value
+                    )
+                  }}
+                />
+
+                <Heading level={3} margin={"none"}>
+                  Post contains unidentified images
+                </Heading>
+                <CheckBoxGroup
+                  options={annotationFieldThree}
+                  value={output[currentPost]}
+                  onChange={e => {
+                    setUserInput(
+                      "field-three",
+                      posts[currentPost].data[POST_ID],
+                      e.value
                     )
                   }}
                 />
@@ -156,11 +185,11 @@ const Posts = ({ posts }) => {
                 </Heading>
                 <RadioButtonGroup
                   name="visible_source"
-                  options={annotationFieldThree}
+                  options={annotationFieldFour}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
-                      "field-three",
+                      "field-four",
                       posts[currentPost].data[POST_ID],
                       e.target.value
                     )
@@ -179,11 +208,11 @@ const Posts = ({ posts }) => {
                 </Paragraph>
                 <RadioButtonGroup
                   name="memes"
-                  options={annotationFieldFour}
+                  options={annotationFieldFive}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
-                      "field-four",
+                      "field-five",
                       posts[currentPost].data[POST_ID],
                       e.target.value
                     )
@@ -195,11 +224,27 @@ const Posts = ({ posts }) => {
                 </Heading>
                 <RadioButtonGroup
                   name="solicitation"
-                  options={annotationFieldFive}
+                  options={annotationFieldSix}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
-                      "field-five",
+                      "field-six",
+                      posts[currentPost].data[POST_ID],
+                      e.target.value
+                    )
+                  }}
+                />
+
+                <Heading level={3} margin={"none"}>
+                  Worth Archiving
+                </Heading>
+                <RadioButtonGroup
+                  name="solicitation"
+                  options={annotationFieldSeven}
+                  value={output[currentPost]}
+                  onChange={e => {
+                    setUserInput(
+                      "field-seven",
                       posts[currentPost].data[POST_ID],
                       e.target.value
                     )
