@@ -153,14 +153,15 @@ const Posts = ({ posts }) => {
                 <Heading level={3} margin={"none"}>
                   Post contains unidentified videos
                 </Heading>
-                <CheckBoxGroup
+                <RadioButtonGroup
+                  name="unidentified videos"
                   options={annotationFieldTwo}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
                       "field-two",
                       posts[currentPost].data[POST_ID],
-                      e.value
+                      e.target.value
                     )
                   }}
                 />
@@ -168,14 +169,15 @@ const Posts = ({ posts }) => {
                 <Heading level={3} margin={"none"}>
                   Post contains unidentified images
                 </Heading>
-                <CheckBoxGroup
+                <RadioButtonGroup
+                  name="memes"
                   options={annotationFieldThree}
                   value={output[currentPost]}
                   onChange={e => {
                     setUserInput(
                       "field-three",
                       posts[currentPost].data[POST_ID],
-                      e.value
+                      e.target.value
                     )
                   }}
                 />
