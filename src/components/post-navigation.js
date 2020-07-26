@@ -8,7 +8,7 @@ const PostNavigation = ({
   statusLabel,
 }) => (
   <Box direction={"row"} gap={"medium"} align={"center"}>
-    {/* <Button label="previous" onClick={decrementPage} /> */}
+    <Button label="previous" onClick={decrementPage} />
     <Heading level={3} margin={"none"}>
       {postId}
     </Heading>

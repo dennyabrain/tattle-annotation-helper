@@ -6,10 +6,8 @@ import { Box } from "grommet"
  * @function JsonUploader
  **/
 
-const JsonUploader = () => {
+const JsonUploader = ({ onFileLoad }) => {
   const fileHandler = acceptedFiles => {
-    console.log("here")
-    console.log(acceptedFiles)
     const reader = new FileReader()
 
     reader.onabort = () => console.log("file reading was aborted")
@@ -18,7 +16,8 @@ const JsonUploader = () => {
       // Do whatever you want with the file contents
       const string = reader.result
       const jsonObj = JSON.parse(string)
-      console.log(jsonObj)
+      // console.log(jsonObj)
+      onFileLoad(jsonObj)
     }
     reader.readAsText(acceptedFiles[0])
   }
@@ -27,10 +26,15 @@ const JsonUploader = () => {
     <Dropzone onDrop={fileHandler}>
       {({ getRootProps, getInputProps }) => (
         <section>
-          <div {...getRootProps()}>
+          <Box
+            {...getRootProps()}
+            border={{ style: "dashed", size: "small" }}
+            round={"small"}
+            pad={"medium"}
+          >
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          </div>
+            <p>Drag 'n' drop or click to select annotation file</p>
+          </Box>
         </section>
       )}
     </Dropzone>
