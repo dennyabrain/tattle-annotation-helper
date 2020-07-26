@@ -21,6 +21,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-dropzone": "^11.0.2",
     "react-helmet": "^6.1.0",
     "react-papaparse": "^3.4.0",
     "save-file": "^2.3.1",
