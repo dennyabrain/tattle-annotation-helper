@@ -3,7 +3,6 @@ import { Box, Heading, Button } from "grommet"
 import PostNavigation from "./post-navigation"
 import Post from "./post"
 import { save } from "save-file"
-
 /**
  * @author
  * @function Posts
@@ -12,11 +11,12 @@ import { save } from "save-file"
 const Posts = ({ posts, count }) => {
   const [postNum, setCurrentPostNum] = useState(0)
   const [activePosts, setActivePosts] = useState(posts)
-  const postComponent = useRef(null)
 
   const onSave = () => {
-    console.log(activePosts)
-    save(JSON.stringify(activePosts), "file.json")
+    // console.log(activePosts)
+    console.log(JSON.stringify(activePosts))
+    // console.log(unescape(encodeURIComponent(JSON.stringify(activePosts))))
+    save(JSON.stringify(activePosts), "output.json")
   }
 
   const updateAnnotation = (postIndex, inputType, value) => {
@@ -58,7 +58,6 @@ const Posts = ({ posts, count }) => {
           metadata={activePosts[postNum].metadata}
           annotation={activePosts[postNum].annotation}
           updateAnnotation={updateAnnotation}
-          ref={postComponent}
         />
         <PostNavigation
           incrementPage={nextPressed}
