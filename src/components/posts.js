@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Box, Heading } from "grommet"
+import { Box, Heading, Button } from "grommet"
 import PostNavigation from "./post-navigation"
 import Post from "./post"
+import { save } from "save-file"
 
 /**
  * @author
@@ -10,21 +11,36 @@ import Post from "./post"
 
 const Posts = ({ posts, count }) => {
   const [postNum, setCurrentPostNum] = useState(0)
-  const [posts, setPosts] = useState(posts)
+  const [activePosts, setActivePosts] = useState(posts)
   const postComponent = useRef(null)
 
-  const onSave = () => {}
+  const onSave = () => {
+    console.log(activePosts)
+    save(JSON.stringify(activePosts), "file.json")
+  }
+
+  const updateAnnotation = (postIndex, inputType, value) => {
+    console.log("changed", { postIndex, inputType, value })
+    setActivePosts({
+      ...activePosts,
+      [postIndex]: {
+        ...activePosts[postIndex],
+        annotation: {
+          ...activePosts[postIndex]["annotation"],
+          [inputType]: value,
+        },
+      },
+    })
+  }
 
   const nextPressed = () => {
     const newNum = postNum === count ? count : postNum + 1
     setCurrentPostNum(newNum)
-    // postComponent.current.reset()
   }
 
   const prevPressed = () => {
     const newNum = postNum === 0 ? 0 : postNum - 1
     setCurrentPostNum(newNum)
-    // postComponent.current.reset()
   }
   return (
     <Box pad={"small"}>
@@ -33,15 +49,24 @@ const Posts = ({ posts, count }) => {
         <PostNavigation
           incrementPage={nextPressed}
           decrementPage={prevPressed}
-          postId={posts[postNum]["metadata"]["_id"]}
+          postId={activePosts[postNum]["metadata"]["_id"]}
           statusLabel={`${postNum}/${count}`}
         />
 
         <Post
-          metadata={posts[postNum].metadata}
-          annotation={posts[postNum].annotation}
+          postIndex={postNum}
+          metadata={activePosts[postNum].metadata}
+          annotation={activePosts[postNum].annotation}
+          updateAnnotation={updateAnnotation}
           ref={postComponent}
         />
+        <PostNavigation
+          incrementPage={nextPressed}
+          decrementPage={prevPressed}
+          postId={activePosts[postNum]["metadata"]["_id"]}
+          statusLabel={`${postNum}/${count}`}
+        />
+        <Button primary label="Save" onClick={onSave} fill={false} />
       </Box>
     </Box>
   )

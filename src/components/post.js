@@ -48,19 +48,16 @@ const annotationFieldSeven = ["Yes  ", "No     "]
  * @function Post
  **/
 
-const Post = ({ metadata, annotation }) => {
+const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
   const [liveAnnotation, setLiveAnnotation] = useState(annotation)
 
   const setUserInput = (inputType, value) => {
     // console.log({ inputType, id, value, output })
-    setLiveAnnotation({
-      ...liveAnnotation,
-      [inputType]: value,
-    })
-  }
-
-  const reset = () => {
-    // setLiveAnnotation(annotation)
+    // setLiveAnnotation({
+    // ...liveAnnotation,
+    // [inputType]: value,
+    // })
+    updateAnnotation(postIndex, inputType, value)
   }
 
   return (
@@ -98,7 +95,7 @@ const Post = ({ metadata, annotation }) => {
           </Heading>
           <CheckBoxGroup
             options={annotationFieldOne}
-            value={liveAnnotation["field-one"]}
+            value={annotation["field-one"]}
             onChange={e => {
               setUserInput("field-one", e.value)
             }}
