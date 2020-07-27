@@ -16,7 +16,10 @@ const Posts = ({ posts, count }) => {
     // console.log(activePosts)
     console.log(JSON.stringify(activePosts))
     // console.log(unescape(encodeURIComponent(JSON.stringify(activePosts))))
-    save(JSON.stringify(activePosts), "output.json")
+    const blob = new Blob([JSON.stringify(activePosts)], {
+      type: "text/plain;charset=UTF-8",
+    })
+    save(blob, "output.json")
   }
 
   const updateAnnotation = (postIndex, inputType, value) => {
