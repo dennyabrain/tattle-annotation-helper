@@ -106,7 +106,7 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="unidentified videos"
             options={annotationFieldTwo}
-            value={liveAnnotation["field-two"]}
+            value={annotation["field-two"]}
             onChange={e => {
               setUserInput("field-two", e.target.value)
             }}
@@ -117,7 +117,7 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="memes"
             options={annotationFieldThree}
-            value={liveAnnotation["field-three"]}
+            value={annotation["field-three"]}
             onChange={e => {
               setUserInput("field-three", e.target.value)
             }}
@@ -128,7 +128,7 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="visible_source"
             options={annotationFieldFour}
-            value={liveAnnotation["field-four"]}
+            value={annotation["field-four"]}
             onChange={e => {
               setUserInput("field-four", e.target.value)
             }}
@@ -145,7 +145,7 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="memes"
             options={annotationFieldFive}
-            value={liveAnnotation["field-five"]}
+            value={annotation["field-five"]}
             onChange={e => {
               setUserInput("field-five", e.target.value)
             }}
@@ -156,7 +156,7 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="solicitation"
             options={annotationFieldSix}
-            value={liveAnnotation["field-six"]}
+            value={annotation["field-six"]}
             onChange={e => {
               setUserInput("field-six", e.target.value)
             }}
@@ -167,14 +167,14 @@ const Post = ({ postIndex, metadata, annotation, updateAnnotation }) => {
           <RadioButtonGroup
             name="solicitation"
             options={annotationFieldSeven}
-            value={liveAnnotation["field-seven"]}
+            value={annotation["field-seven"]}
             onChange={e => {
               setUserInput("field-seven", e.target.value)
             }}
           />
           <TextArea
             placeholder="Additional Notes"
-            value={liveAnnotation["annotator_notes"]}
+            value={annotation["annotator_notes"]}
             size={"small"}
             onChange={event =>
               setUserInput("annotator_notes", event.target.value)
