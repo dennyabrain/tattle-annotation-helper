@@ -1,5 +1,6 @@
 import React from "react"
 import { Box, Image, Video } from "grommet"
+import ReactPlayer from "react-player"
 
 /**
  * @author
@@ -13,9 +14,7 @@ const Media = ({ type, url }) => {
     </Box>
   ) : (
     <Box fill={true}>
-      <Video controls="over" fit="contain">
-        <source key="video" src={url} type="video/mp4" />
-      </Video>
+      <ReactPlayer url={url} controls={true} width={"100%"} height={"100%"} />
     </Box>
   )
 }
